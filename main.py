@@ -1,4 +1,4 @@
-# ## Writing a sorting programme ## version 1.4
+# ## Writing a sorting programme ## version 1.5
 
 
 # ## start import ##
@@ -235,11 +235,65 @@ def reverse_merge(arg):
     return arg
 
 
-# ## insertion sort ## complexity O(n)
+# ## insertion sort ## complexity O(n²)
 def insertion(arg):
+
+    # get the argument length
     arg_length = len(arg)
-    for i in range(arg_length):
-        print(i)
+
+    # read all element of the argument
+    for index in range(1, arg_length):
+
+        # save the element to sort on another variable
+        key = arg[index]
+
+        # set a new index to manipulate the element without losing track
+        sorter = index - 1
+
+        # we manipulate if the key is smaller a previous element
+        while sorter >= 0 and key < arg[sorter]:
+
+            # advance the previous element
+            arg[sorter + 1] = arg[sorter]
+
+            # decrement
+            sorter -= 1
+
+            # place the saved element where the index stopped
+        arg[sorter + 1] = key
+
+    # return the argument sorted
+    return arg
+
+
+# ## reverse insertion sort ## complexity O(n²)
+def reverse_insertion(arg):
+
+    # get the argument length
+    arg_length = len(arg)
+
+    # read all element of the argument
+    for index in range(1, arg_length):
+
+        # save the element to sort on another variable
+        key = arg[index]
+
+        # set a new index to manipulate the element without losing track
+        sorter = index - 1
+
+        # we manipulate if the key is greater a previous element
+        while sorter >= 0 and key > arg[sorter]:
+
+            # advance the previous element
+            arg[sorter + 1] = arg[sorter]
+
+            # decrement
+            sorter -= 1
+
+            # place the saved element where the index stopped
+        arg[sorter + 1] = key
+
+    # return the argument sorted
     return arg
 
 
@@ -249,6 +303,8 @@ def help(arg):
     helper = "\nAll sort have different complexity \n" \
              "The higher it is, the faster the program will sort \n" \
              "Here is the list of different sort available : \n" \
+             "Insertion sort {O(n²)} : insertion \n" \
+             "Reverse insertion sort {O(n²)} : rinsertion \n" \
              "Bubble sort {O(n²)} : bubble \n" \
              "Reverse bubble sort {O(n²)} : rbubble \n" \
              "Selection sort {O(n²)} : selection \n" \
@@ -279,6 +335,7 @@ def switcher(case):
         "merge": merge,
         "rmerge": reverse_merge,
         "insertion": insertion,
+        "rinsertion": reverse_insertion,
         "help": help,
         "exit": stop,
         "stop": stop,
